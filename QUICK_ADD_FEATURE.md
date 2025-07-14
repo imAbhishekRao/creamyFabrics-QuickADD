@@ -18,11 +18,9 @@ This feature adds a "Quick Add" button to product recommendations that allows cu
 ### 2. Implementation Details
 
 #### Files Modified:
-- `snippets/product-item-recommendation.liquid` - New product item snippet with quick add functionality
-- `sections/product-recommendations.liquid` - Updated to use new snippet
-- `sections/cart-recommendations.liquid` - Updated to use new snippet
-- `sections/mini-cart.liquid` - Updated to use new snippet
-- `sections/recently-viewed-products.liquid` - Updated to use new snippet
+- `sections/product-recommendations.liquid` - Added quick add overlay with CSS
+- `sections/cart-recommendations.liquid` - Added quick add overlay with CSS
+- Uses existing `snippets/product-item.liquid` with additional overlay
 
 #### Key Features:
 - **Responsive Design**: Adapts to different screen sizes
@@ -58,9 +56,9 @@ This feature adds a "Quick Add" button to product recommendations that allows cu
 - **Accessibility**: Focus states and proper contrast
 
 #### Key CSS Classes:
-- `.product-item__quick-add-wrapper` - Container for the button
-- `.product-item__quick-add-button` - The actual button
-- `.product-item__image-wrapper` - Parent container for positioning
+- `.recommendation-quick-add-overlay` - Container for the button overlay
+- `.recommendation-quick-add-btn` - The actual button
+- `.product-item` - Parent container for positioning
 
 ### 5. Usage
 
