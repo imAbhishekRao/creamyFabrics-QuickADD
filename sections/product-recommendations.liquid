@@ -40,86 +40,24 @@
       --section-products-per-row: 4;
     }
   }
-</style>
-
-<style>
-  .recommendation-quick-add-overlay {
-    position: absolute;
-    bottom: 10px;
-    left: 10px;
-    right: 10px;
-    z-index: 10;
-    opacity: 0;
-    transform: translateY(10px);
-    transition: all 0.3s ease;
+  
+  /* ADD button styling for product recommendations */
+  .product-recommendation-add-button {
+    margin-top: 8px;
+    text-align: center;
   }
-
-  .product-item:hover .recommendation-quick-add-overlay {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  .recommendation-quick-add-btn {
-    width: 100%;
-    background: rgba(255, 255, 255, 0.98);
-    backdrop-filter: blur(10px);
-    border: 2px solid rgba(0, 0, 0, 0.2);
-    color: #000;
-    font-weight: 600;
-    padding: 12px 16px;
-    font-size: 12px;
-    border-radius: 8px;
+  
+  .product-recommendation-add-button .button {
+    font-size: 14px;
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-weight: 500;
     transition: all 0.2s ease;
-    cursor: pointer;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   }
-
-  .recommendation-quick-add-btn:hover {
-    background: rgba(255, 255, 255, 1);
-    border-color: rgba(0, 0, 0, 0.3);
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
-  }
-
-  .recommendation-quick-add-btn:focus {
-    outline: 2px solid #000;
-    outline-offset: 2px;
-  }
-
-  @media screen and (max-width: 740px) {
-    .recommendation-quick-add-overlay {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    
-    .recommendation-quick-add-btn {
-      font-size: 11px;
-      padding: 10px 14px;
-    }
-  }
-
-  @media screen and (max-width: 480px) {
-    .recommendation-quick-add-overlay {
-      bottom: 5px;
-      left: 5px;
-      right: 5px;
-    }
-    
-    .recommendation-quick-add-btn {
-      font-size: 10px;
-      padding: 8px 12px;
-    }
-  }
-
-  /* Ensure product items have relative positioning */
-  .product-item {
-    position: relative;
-  }
-
-  .product-item__image-wrapper {
-    position: relative;
+  
+  .product-recommendation-add-button .button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
   }
 </style>
 
@@ -155,33 +93,12 @@
                 {%- capture sizes_attribute -%}(max-width: 740px) 75vw, min({{ 100.0 | divided_by: 4 | ceil }}vw, {{ 1520.0 | divided_by: 4 | ceil }}px){%- endcapture -%}
                 {%- render 'product-item', product: product, sizes_attribute: sizes_attribute, reveal: settings.stagger_products_apparition -%}
                 
-                {%- comment -%} Additional Quick Add Button for Recommendations {%- endcomment -%}
-                {%- if product.available -%}
-                  <div class="recommendation-quick-add-overlay">
-                    {%- if product.variants.size == 1 -%}
-                      {%- form 'product', product, is: 'product-form', class: 'recommendation-quick-form' -%}
-                        <input type="hidden" name="quantity" value="1">
-                        <input type="hidden" name="id" value="{{ product.first_available_variant.id }}">
-                        <button type="submit" class="recommendation-quick-add-btn">
-                          {{ 'collection.product.add_to_cart_short' | t }}
-                        </button>
-                      {%- endform -%}
-                    {%- else -%}
-                      <button 
-                        is="toggle-button" 
-                        aria-controls="recommendation-quick-{{ product.id }}-popover"
-                        class="recommendation-quick-add-btn"
-                      >
-                        {{ 'collection.product.quick_view' | t }}
-                      </button>
-                      <quick-buy-popover
-                        id="recommendation-quick-{{ product.id }}-popover"
-                        href="{{ product.url }}?view=quick-buy-popover"
-                        class="popover popover--quick-buy"
-                      ></quick-buy-popover>
-                    {%- endif -%}
-                  </div>
-                {%- endif -%}
+                <!-- ADD button for related product -->
+                <div class="product-recommendation-add-button">
+                  <a href="{{ product.url }}" class="button button--primary button--full" style="margin-top: 10px; text-decoration: none;">
+                    ADD
+                  </a>
+                </div>
               {%- endfor -%}
             </div>
           </div>
