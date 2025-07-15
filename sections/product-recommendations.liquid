@@ -41,18 +41,32 @@
     }
   }
   
-  /* ADD button styling for product recommendations */
+  /* Product recommendation wrapper and button styling */
+  .product-recommendation-wrapper {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+  
+  .product-recommendation-wrapper .product-item {
+    flex: 1;
+  }
+  
   .product-recommendation-add-button {
-    margin-top: 8px;
+    margin-top: 12px;
     text-align: center;
+    width: 100%;
   }
   
   .product-recommendation-add-button .button {
     font-size: 14px;
-    padding: 8px 16px;
+    padding: 10px 16px;
     border-radius: 4px;
     font-weight: 500;
     transition: all 0.2s ease;
+    width: 100%;
+    text-decoration: none;
+    display: inline-block;
   }
   
   .product-recommendation-add-button .button:hover {
@@ -91,13 +105,15 @@
                 {%- assign smallest_image_aspect_ratio = smallest_image_aspect_ratio | at_least: product.featured_media.aspect_ratio -%}
 
                 {%- capture sizes_attribute -%}(max-width: 740px) 75vw, min({{ 100.0 | divided_by: 4 | ceil }}vw, {{ 1520.0 | divided_by: 4 | ceil }}px){%- endcapture -%}
-                {%- render 'product-item', product: product, sizes_attribute: sizes_attribute, reveal: settings.stagger_products_apparition -%}
-                
-                <!-- ADD button for related product -->
-                <div class="product-recommendation-add-button">
-                  <a href="{{ product.url }}" class="button button--primary button--full" style="margin-top: 10px; text-decoration: none;">
-                    ADD
-                  </a>
+                <div class="product-recommendation-wrapper">
+                  {%- render 'product-item', product: product, sizes_attribute: sizes_attribute, reveal: settings.stagger_products_apparition -%}
+                  
+                  <!-- ADD button for related product -->
+                  <div class="product-recommendation-add-button">
+                    <a href="{{ product.url }}" class="button button--primary button--full">
+                      ADD
+                    </a>
+                  </div>
                 </div>
               {%- endfor -%}
             </div>
